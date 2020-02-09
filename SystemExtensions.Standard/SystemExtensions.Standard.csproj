@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Irvin.Extensions</RootNamespace>
+    <AssemblyName>SystemExtensions</AssemblyName>
+    <Company>Irvin Software Products, LLC</Company>
+    <Version>1.2.0</Version>
+    <Product />
+    <Authors>Irvin Software Products, LLC</Authors>
+    <Copyright>Copyright © Irvin Software Products 2013-2020</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Irvin.SystemExtensions</PackageId>
+  </PropertyGroup>
+
+</Project>
