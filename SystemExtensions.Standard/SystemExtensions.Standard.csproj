@@ -11,6 +11,14 @@
     <Copyright>Copyright © Irvin Software Products 2013-2020</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
