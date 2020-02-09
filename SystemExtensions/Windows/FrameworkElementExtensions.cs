@@ -1,7 +1,9 @@
+using System;
 using System.Linq.Expressions;
+using System.Windows;
 using Binding = System.Windows.Data.Binding;
 
-namespace System.Windows
+namespace Irvin.Extensions.Windows
 {
 	public static class FrameworkElementExtensions
 	{

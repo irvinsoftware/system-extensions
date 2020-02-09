@@ -1,6 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
-namespace System
+namespace Irvin.Extensions
 {
     public class Url
     {

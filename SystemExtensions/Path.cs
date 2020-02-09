@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Irvin.Core
+namespace Irvin.Extensions
 {
 	public class Path
 	{

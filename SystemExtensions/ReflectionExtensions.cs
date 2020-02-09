@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace System
+namespace Irvin.Extensions
 {
 	public static class ReflectionExtensions
 	{

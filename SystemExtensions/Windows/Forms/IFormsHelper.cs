@@ -1,4 +1,6 @@
-namespace System.Windows.Forms
+using System.Windows.Forms;
+
+namespace Irvin.Extensions.Windows.Forms
 {
     public interface IFormsHelper
     {

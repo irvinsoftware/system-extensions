@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Remoting.Metadata;
+using Irvin.Extensions;
 using NUnit.Framework;
 
 namespace SystemExtensions.Test

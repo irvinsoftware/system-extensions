@@ -1,4 +1,4 @@
-﻿namespace Irvin.Core
+﻿namespace Irvin.Extensions
 {
 	public enum PathStyle
 	{

@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 
-namespace System
+namespace Irvin.Extensions
 {
 	public static class EnumHelper
 	{

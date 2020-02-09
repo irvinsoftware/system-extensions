@@ -1,7 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Windows.Forms;
 
-namespace System.Windows.Forms
+namespace Irvin.Extensions.Windows.Forms
 {
 	public delegate TValue GetControlValue<in TControl, out TValue>(TControl control);
 	public delegate TValue GetControlProperty<TControl, TValue>(TControl control, GetControlValue<TControl, TValue> getControlValueMethod);

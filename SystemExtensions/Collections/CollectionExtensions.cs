@@ -1,4 +1,6 @@
-﻿namespace System.Collections
+﻿using System.Collections;
+
+namespace Irvin.Extensions.Collections
 {
     public static class CollectionExtensions
     {

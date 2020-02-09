@@ -1,4 +1,6 @@
-namespace System
+using System;
+
+namespace Irvin.Extensions
 {
 	public static class ConsoleHelper
 	{

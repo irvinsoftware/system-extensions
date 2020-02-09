@@ -1,7 +1,7 @@
-﻿using Irvin.Core;
+﻿using Irvin.Extensions;
 using NUnit.Framework;
 
-namespace Irvin.Framework.Tests
+namespace SystemExtensions.Test
 {
 	[TestFixture]
 	public class PathTests

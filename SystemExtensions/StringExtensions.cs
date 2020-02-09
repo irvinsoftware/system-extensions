@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
-namespace System
+namespace Irvin.Extensions
 {
 	public static class StringExtensions
 	{

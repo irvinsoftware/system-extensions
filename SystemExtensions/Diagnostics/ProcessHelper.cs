@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Management;
 
-namespace System.Diagnostics
+namespace Irvin.Extensions.Diagnostics
 {
     public class ProcessHelper : IProcessHelper
     {

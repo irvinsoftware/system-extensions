@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace System.Diagnostics
+namespace Irvin.Extensions.Diagnostics
 {
     public interface IProcessHelper
     {
