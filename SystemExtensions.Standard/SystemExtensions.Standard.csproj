@@ -12,6 +12,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>A .NET Standard 2.0 library containing enhancements to the System library.</Description>
+    <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
