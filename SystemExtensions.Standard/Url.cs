@@ -86,6 +86,32 @@ namespace Irvin.Extensions
             return (url ?? string.Empty).Trim().StartsWith("#");
         }
 
+        public Url ToSecure()
+        {
+            Url url = (Url) Clone();
+            url.Protocol = UrlProtocol.Https;
+            return url;
+        }
+
+        public bool Matches(Url url)
+        {
+            if (url == null)
+            {
+                return false;
+            }
+
+            Url thisUrl = this;
+            Url otherUrl = url;
+
+            return
+                otherUrl.Protocol == thisUrl.Protocol &&
+                otherUrl.PortNumber == thisUrl.PortNumber &&
+                string.Equals(otherUrl.SubDomain, thisUrl.SubDomain, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(otherUrl.DomainName, thisUrl.DomainName, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(otherUrl.TopLevelDomain, thisUrl.TopLevelDomain, StringComparison.InvariantCultureIgnoreCase) && 
+                string.Equals(otherUrl.Path, thisUrl.Path, StringComparison.InvariantCultureIgnoreCase);
+        }
+
         public object Clone()
         {
             return new Url
@@ -97,13 +123,6 @@ namespace Irvin.Extensions
                 PortNumber = this.PortNumber,
                 Path = this.Path
             };
-        }
-
-        public Url ToSecure()
-        {
-            Url url = (Url) Clone();
-            url.Protocol = UrlProtocol.Https;
-            return url;
         }
     }
 }
