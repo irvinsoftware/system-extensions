@@ -4,9 +4,14 @@ using System.Text.RegularExpressions;
 
 namespace Irvin.Extensions
 {
-    public class Url
+    public class Url : ICloneable
     {
+        public static int DefaultWebPort = 80;
         public const string DefaultWebSubDomain = "www";
+
+        private Url()
+        {
+        }
 
         public Url(Uri uri)
         {
@@ -60,13 +65,14 @@ namespace Irvin.Extensions
             }
         }
 
-        public UrlProtocol Protocol { get; }
+        public bool IsSecureConnection => Protocol == UrlProtocol.Https;
+        public UrlProtocol Protocol { get; private set; }
         public string Host => string.Join(".", new[] {SubDomain, DomainName, TopLevelDomain}.Where(x => x != null));
-        public string SubDomain { get; }
-        public string DomainName { get; }
-        public string TopLevelDomain { get; }
-        public int PortNumber { get; }
-        public string Path { get; }
+        public string SubDomain { get; private set; }
+        public string DomainName { get; private set; }
+        public string TopLevelDomain { get; private set; }
+        public int PortNumber { get; private set; }
+        public string Path { get; private set; }
         public string ResourceName { get; }
         public string ResourceExtension { get; }
 
@@ -78,6 +84,26 @@ namespace Irvin.Extensions
         public static bool IsBookmark(string url)
         {
             return (url ?? string.Empty).Trim().StartsWith("#");
+        }
+
+        public object Clone()
+        {
+            return new Url
+            {
+                Protocol = this.Protocol,
+                SubDomain = this.SubDomain,
+                DomainName = this.DomainName,
+                TopLevelDomain = this.TopLevelDomain,
+                PortNumber = this.PortNumber,
+                Path = this.Path
+            };
+        }
+
+        public Url ToSecure()
+        {
+            Url url = (Url) Clone();
+            url.Protocol = UrlProtocol.Https;
+            return url;
         }
     }
 }
