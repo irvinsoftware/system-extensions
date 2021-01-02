@@ -17,7 +17,7 @@ namespace Irvin.Extensions
         {
             Protocol = GetProtocolFromScheme(uri.Scheme);
 
-            string[] hostParts = uri.Host.Split("".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] hostParts = uri.Host.Split(".".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             if (hostParts.Length == 1)
             {
                 DomainName = hostParts.First();
@@ -39,7 +39,7 @@ namespace Irvin.Extensions
             if(!string.IsNullOrEmpty(uri.PathAndQuery))
             {
                 string[] subUriParts = uri.PathAndQuery.Split('?');
-                Path = subUriParts[0];
+                Path = subUriParts[0].Substring(1);
 
                 if(!string.IsNullOrEmpty(Path))
                 {
