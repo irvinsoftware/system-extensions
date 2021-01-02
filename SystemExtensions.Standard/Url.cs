@@ -1,55 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Irvin.Extensions
 {
-    public class Url : ICloneable
+    public class Url : ICloneable, ICloneable<Url>
     {
-        public static int DefaultWebPort = 80;
         public const string DefaultWebSubDomain = "www";
 
         private Url()
         {
         }
 
+        public Url(string rawUrl)
+        {
+            if (IsAbsoluteUrl(rawUrl))
+            {
+                FillPropertiesFrom(new Uri(rawUrl));
+            }
+            else
+            {
+                PopulateBaseLocationPropertiesFrom(rawUrl);
+            }
+        }
+
         public Url(Uri uri)
         {
+            FillPropertiesFrom(uri);
+        }
+
+        private void FillPropertiesFrom(Uri uri)
+        {
             Protocol = GetProtocolFromScheme(uri.Scheme);
-
-            string[] hostParts = uri.Host.Split(".".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            if (hostParts.Length == 1)
-            {
-                DomainName = hostParts.First();
-            }
-            if (hostParts.Length == 2)
-            {
-                DomainName = hostParts.First();
-                TopLevelDomain = hostParts.Last();
-            }
-            if (hostParts.Length == 3)
-            {
-                SubDomain = hostParts[0];
-                DomainName = hostParts[1];
-                TopLevelDomain = hostParts[2];
-            }
-
+            PopulateBaseLocationPropertiesFrom(uri.Host);
             PortNumber = uri.Port;
 
-            if(!string.IsNullOrEmpty(uri.PathAndQuery))
+            if (!string.IsNullOrEmpty(uri.PathAndQuery))
             {
                 string[] subUriParts = uri.PathAndQuery.Split('?');
-                Path = subUriParts[0].Substring(1);
-
-                if(!string.IsNullOrEmpty(Path))
-                {
-                    string[] pathParts = Path.Split('/');
-                    ResourceName = pathParts[pathParts.Length - 1];
-
-                    string[] resourceParts = ResourceName.Split('.');
-                    ResourceExtension = resourceParts.Length > 1 ? resourceParts[1] : null;
-                }                
-            }            
+                PopulatePathDetailsFrom(subUriParts.FirstOrDefault());
+            }
         }
 
         private UrlProtocol GetProtocolFromScheme(string uriScheme)
@@ -65,17 +56,69 @@ namespace Irvin.Extensions
             }
         }
 
+        private void PopulateBaseLocationPropertiesFrom(string uriHost)
+        {
+            string[] hostParts = uriHost.Split(".".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+            if (hostParts.Length == 1)
+            {
+                DomainName = hostParts.First();
+            }
+
+            if (hostParts.Length == 2)
+            {
+                DomainName = hostParts.First();
+                TopLevelDomain = hostParts.Last();
+            }
+
+            if (hostParts.Length == 3)
+            {
+                SubDomain = hostParts[0];
+                DomainName = hostParts[1];
+                TopLevelDomain = hostParts[2];
+            }
+
+            SubDomain = string.Join(".", hostParts.ToList().GetRange(0, hostParts.Length - 2));
+            DomainName = hostParts[hostParts.Length - 2];
+            TopLevelDomain = hostParts.Last();
+        }
+
         public bool IsSecureConnection => Protocol == UrlProtocol.Https;
-        public UrlProtocol Protocol { get; private set; }
+        public UrlProtocol Protocol { get; set; }
         public string Host => string.Join(".", new[] {SubDomain, DomainName, TopLevelDomain}.Where(x => x != null));
-        public string SubDomain { get; private set; }
+        public string SubDomain { get; set; }
         public string DomainName { get; private set; }
         public string TopLevelDomain { get; private set; }
-        public int PortNumber { get; private set; }
-        public string Path { get; private set; }
-        public string ResourceName { get; }
-        public string ResourceExtension { get; }
+        public int PortNumber { get; set; }
+        public IReadOnlyList<string> PathFolders { get; private set; }
 
+        public string Path
+        {
+            get => string.Join("/", PathFolders);
+            set => PopulatePathDetailsFrom(value);
+        }
+
+        public string ResourceName { get; private set; }
+        public string ResourceExtension { get; private set; }
+
+        private void PopulatePathDetailsFrom(string fullPath)
+        {
+            if (!string.IsNullOrEmpty(fullPath))
+            {
+                if (fullPath.StartsWith("/"))
+                {
+                    fullPath = fullPath.Substring(1);
+                }
+
+                string[] pathParts = fullPath.Split('/');
+                string fileName = pathParts[pathParts.Length - 1];
+
+                PathFolders = pathParts.ToList().GetRange(0, pathParts.Length - 1);
+
+                SetResourceValuesFrom(fileName);
+            }
+        }
+        
         public static bool IsAbsoluteUrl(string url)
         {
             return Regex.IsMatch(url, "^[a-z]+://.+", RegexOptions.IgnoreCase);
@@ -91,6 +134,28 @@ namespace Irvin.Extensions
             Url url = (Url) Clone();
             url.Protocol = UrlProtocol.Https;
             return url;
+        }
+
+        public Url ResolveTo(string newPath)
+        {
+            Url newUrl = (Url) Clone();
+
+            if (newPath.Contains("/"))
+            {
+                throw new NotImplementedException();
+            }
+
+            newUrl.SetResourceValuesFrom(newPath);
+
+            return newUrl;
+        }
+
+        private void SetResourceValuesFrom(string fileName)
+        {
+            ResourceName = fileName;
+
+            string[] resourceParts = ResourceName.Split('.');
+            ResourceExtension = resourceParts.Length > 1 ? resourceParts[1] : null;
         }
 
         public bool Matches(Url url)
@@ -112,17 +177,36 @@ namespace Irvin.Extensions
                 string.Equals(otherUrl.Path, thisUrl.Path, StringComparison.InvariantCultureIgnoreCase);
         }
 
+        Url ICloneable<Url>.Clone()
+        {
+            return (Url) Clone();
+        }
+
         public object Clone()
         {
+            Url source = this;
             return new Url
             {
-                Protocol = this.Protocol,
-                SubDomain = this.SubDomain,
-                DomainName = this.DomainName,
-                TopLevelDomain = this.TopLevelDomain,
-                PortNumber = this.PortNumber,
-                Path = this.Path
+                Protocol = source.Protocol,
+                SubDomain = source.SubDomain,
+                DomainName = source.DomainName,
+                TopLevelDomain = source.TopLevelDomain,
+                PortNumber = source.PortNumber,
+                Path = source.Path
             };
+        }
+
+        public static int GetDefaultPortFor(UrlProtocol urlProtocol)
+        {
+            switch (urlProtocol)
+            {
+                case UrlProtocol.Https:
+                    return 443;
+                case UrlProtocol.Http:
+                    return 80;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
