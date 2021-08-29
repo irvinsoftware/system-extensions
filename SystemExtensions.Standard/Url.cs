@@ -85,6 +85,7 @@ namespace Irvin.Extensions
 
         public bool IsSecureConnection => Protocol == UrlProtocol.Https;
         public UrlProtocol Protocol { get; set; }
+        public string ProtocolCode => GetProtocolCode(Protocol);
         public string Host => string.Join(".", new[] {SubDomain, DomainName, TopLevelDomain}.Where(x => x != null));
         public string SubDomain { get; set; }
         public string DomainName { get; private set; }
@@ -216,7 +217,7 @@ namespace Irvin.Extensions
             return $"{protocolCode}://{Host}{portOutput}{Path}/{ResourceName}";
         }
 
-        private static string GetProtocolCode(UrlProtocol protocol)
+        public static string GetProtocolCode(UrlProtocol protocol)
         {
             switch (protocol)
             {
