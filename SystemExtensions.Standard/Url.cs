@@ -64,23 +64,23 @@ namespace Irvin.Extensions
             {
                 DomainName = hostParts.First();
             }
-
-            if (hostParts.Length == 2)
+            else if (hostParts.Length == 2)
             {
                 DomainName = hostParts.First();
                 TopLevelDomain = hostParts.Last();
             }
-
-            if (hostParts.Length == 3)
+            else if (hostParts.Length == 3)
             {
                 SubDomain = hostParts[0];
                 DomainName = hostParts[1];
                 TopLevelDomain = hostParts[2];
             }
-
-            SubDomain = string.Join(".", hostParts.ToList().GetRange(0, hostParts.Length - 2));
-            DomainName = hostParts[hostParts.Length - 2];
-            TopLevelDomain = hostParts.Last();
+            else
+            {
+                SubDomain = string.Join(".", hostParts.ToList().GetRange(0, hostParts.Length - 2));
+                DomainName = hostParts[hostParts.Length - 2];
+                TopLevelDomain = hostParts.Last();    
+            }
         }
 
         public bool IsSecureConnection => Protocol == UrlProtocol.Https;
@@ -204,6 +204,26 @@ namespace Irvin.Extensions
                     return 443;
                 case UrlProtocol.Http:
                     return 80;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        public override string ToString()
+        {
+            string protocolCode = GetProtocolCode(Protocol);
+            string portOutput = PortNumber != GetDefaultPortFor(Protocol) ? ":" + PortNumber : null;
+            return $"{protocolCode}://{Host}{portOutput}{Path}/{ResourceName}";
+        }
+
+        private static string GetProtocolCode(UrlProtocol protocol)
+        {
+            switch (protocol)
+            {
+                case UrlProtocol.Http:
+                    return "http";
+                case UrlProtocol.Https:
+                    return "https";
                 default:
                     throw new NotSupportedException();
             }
