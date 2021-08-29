@@ -177,6 +177,12 @@ namespace Irvin.Extensions
                 string.Equals(otherUrl.TopLevelDomain, thisUrl.TopLevelDomain, StringComparison.InvariantCultureIgnoreCase) && 
                 string.Equals(otherUrl.Path, thisUrl.Path, StringComparison.InvariantCultureIgnoreCase);
         }
+        
+        public bool StartsWith(Url otherUrl)
+        {
+            //TODO: better implementation
+            return this.ToString().StartsWith(otherUrl.ToString(), StringComparison.InvariantCultureIgnoreCase);
+        }
 
         Url ICloneable<Url>.Clone()
         {
