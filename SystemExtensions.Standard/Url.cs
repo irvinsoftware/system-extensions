@@ -13,6 +13,11 @@ namespace Irvin.Extensions
         {
         }
 
+        public static implicit operator Url(string rawUrl)
+        {
+            return new Url(rawUrl);
+        }
+        
         public Url(string rawUrl)
         {
             if (IsAbsoluteUrl(rawUrl))
