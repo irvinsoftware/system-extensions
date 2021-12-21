@@ -13,6 +13,11 @@ namespace Irvin.Extensions
         {
         }
 
+        public static implicit operator Url(string rawUrl)
+        {
+            return new Url(rawUrl);
+        }
+        
         public Url(string rawUrl)
         {
             if (IsAbsoluteUrl(rawUrl))
@@ -64,27 +69,28 @@ namespace Irvin.Extensions
             {
                 DomainName = hostParts.First();
             }
-
-            if (hostParts.Length == 2)
+            else if (hostParts.Length == 2)
             {
                 DomainName = hostParts.First();
                 TopLevelDomain = hostParts.Last();
             }
-
-            if (hostParts.Length == 3)
+            else if (hostParts.Length == 3)
             {
                 SubDomain = hostParts[0];
                 DomainName = hostParts[1];
                 TopLevelDomain = hostParts[2];
             }
-
-            SubDomain = string.Join(".", hostParts.ToList().GetRange(0, hostParts.Length - 2));
-            DomainName = hostParts[hostParts.Length - 2];
-            TopLevelDomain = hostParts.Last();
+            else
+            {
+                SubDomain = string.Join(".", hostParts.ToList().GetRange(0, hostParts.Length - 2));
+                DomainName = hostParts[hostParts.Length - 2];
+                TopLevelDomain = hostParts.Last();    
+            }
         }
 
         public bool IsSecureConnection => Protocol == UrlProtocol.Https;
         public UrlProtocol Protocol { get; set; }
+        public string ProtocolCode => GetProtocolCode(Protocol);
         public string Host => string.Join(".", new[] {SubDomain, DomainName, TopLevelDomain}.Where(x => x != null));
         public string SubDomain { get; set; }
         public string DomainName { get; private set; }
@@ -176,6 +182,12 @@ namespace Irvin.Extensions
                 string.Equals(otherUrl.TopLevelDomain, thisUrl.TopLevelDomain, StringComparison.InvariantCultureIgnoreCase) && 
                 string.Equals(otherUrl.Path, thisUrl.Path, StringComparison.InvariantCultureIgnoreCase);
         }
+        
+        public bool StartsWith(Url otherUrl)
+        {
+            //TODO: better implementation
+            return this.ToString().StartsWith(otherUrl.ToString(), StringComparison.InvariantCultureIgnoreCase);
+        }
 
         Url ICloneable<Url>.Clone()
         {
@@ -204,6 +216,26 @@ namespace Irvin.Extensions
                     return 443;
                 case UrlProtocol.Http:
                     return 80;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        public override string ToString()
+        {
+            string protocolCode = GetProtocolCode(Protocol);
+            string portOutput = PortNumber != GetDefaultPortFor(Protocol) ? ":" + PortNumber : null;
+            return $"{protocolCode}://{Host}{portOutput}{Path}/{ResourceName}";
+        }
+
+        public static string GetProtocolCode(UrlProtocol protocol)
+        {
+            switch (protocol)
+            {
+                case UrlProtocol.Http:
+                    return "http";
+                case UrlProtocol.Https:
+                    return "https";
                 default:
                     throw new NotSupportedException();
             }
