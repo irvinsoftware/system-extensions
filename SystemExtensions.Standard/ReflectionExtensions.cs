@@ -19,7 +19,13 @@ namespace Irvin.Extensions
 			return GetAttribute<TAttribute>(parameterInfo, inherit);
 		}
 
-		public static TAttribute GetAttribute<TAttribute>(this ICustomAttributeProvider codeElement, bool inherit = false) where TAttribute : Attribute
+		private static TAttribute GetAttribute<TAttribute>(this ICustomAttributeProvider codeElement, bool inherit = false) where TAttribute : Attribute
+		{
+			object[] attributes = codeElement.GetCustomAttributes(typeof (TAttribute), inherit);
+			return attributes.Length != 0 ? (TAttribute) attributes[0] : null;
+		}
+		
+		public static TAttribute GetAttribute<TAttribute>(this MemberInfo codeElement, bool inherit = false) where TAttribute : Attribute
 		{
 			object[] attributes = codeElement.GetCustomAttributes(typeof (TAttribute), inherit);
 			return attributes.Length != 0 ? (TAttribute) attributes[0] : null;
