@@ -8,13 +8,16 @@
     <Version>1.2.0</Version>
     <Product />
     <Authors>Irvin Software Products, LLC</Authors>
-    <Copyright>Copyright © Irvin Software Products 2013-2020</Copyright>
+    <Copyright>Copyright © Irvin Software Products 2013-2022</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET Standard 2.0 library containing enhancements to the System library.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageVersion>1.2.1.1</PackageVersion>
+    <AssemblyVersion>1.2.1.1</AssemblyVersion>
+    <FileVersion>1.2.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
