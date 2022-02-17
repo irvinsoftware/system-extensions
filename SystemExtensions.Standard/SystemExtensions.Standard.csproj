@@ -15,7 +15,9 @@
     <Description>A .NET Standard 2.0 library containing enhancements to the System library.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageVersion>1.2.1</PackageVersion>
+    <PackageVersion>1.2.1.1</PackageVersion>
+    <AssemblyVersion>1.2.1.1</AssemblyVersion>
+    <FileVersion>1.2.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
