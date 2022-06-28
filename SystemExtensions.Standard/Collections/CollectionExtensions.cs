@@ -13,6 +13,11 @@ namespace Irvin.Extensions.Collections
             return list.Count - 1;
         }
 
+        public static bool None<T>(this IEnumerable<T> enumerable)
+        {
+            return !enumerable.Any();
+        }
+        
         public static List<object> ToDynamicList<TModel>(this List<TModel> list)
         {
             List<object> downcastList = new List<object>();
