@@ -27,7 +27,7 @@ public class DataMemberInfo
             FieldInfo fieldInfo = UnderlyingMember as FieldInfo;
             if (fieldInfo != null)
             {
-                fieldInfo.SetValueDirect(__makeref(target), Value); //TODO: find better implementation
+                fieldInfo.SetValue(target, Value);
             }
             else
             {

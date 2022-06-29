@@ -22,14 +22,8 @@ public static class TypeReflectionExtensions
     {
         Type targetType = typeof(T);
 
-        // is a struct
-        if (!targetType.IsClass)  
-        {
-            return BuildDefaultInitObject<T>(dataMemberInfos);
-        }
-
-        // is a POCO (plain-old-c#-object)
-        if (targetType.HasParameterlessConstructor())
+        // is a struct or a POCO ('plain-old-c#-object')
+        if (!targetType.IsClass || targetType.HasParameterlessConstructor())
         {
             return BuildDefaultInitObject<T>(dataMemberInfos);
         }
@@ -46,11 +40,12 @@ public static class TypeReflectionExtensions
 
     public static bool HasParameterlessConstructor(this Type type)
     {
-        return type.GetConstructors().FirstOrDefault(x => x.GetParameters().None()) != null;
+        return type.GetConstructors().Any(x => x.GetParameters().None());
     }
 
     private static T BuildDefaultInitObject<T>(IEnumerable<DataMemberInfo> dataMemberInfos)
     {
+        //for some reason SetOn() works for "object" but not "T"
         object obj = Activator.CreateInstance<T>();
         
         foreach (DataMemberInfo dataMemberInfo in dataMemberInfos)
