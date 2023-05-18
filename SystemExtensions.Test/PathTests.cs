@@ -1,4 +1,5 @@
-﻿using Irvin.Extensions;
+﻿using System;
+using Irvin.Extensions;
 using NUnit.Framework;
 
 namespace SystemExtensions.Test
@@ -90,12 +91,13 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		[ExpectedException]
 		public void GetSubPath_ThrowsException_ForPlainUrl_IfBacktrackedTooFar()
 		{
 			Path classUnderTest = "http://msdn.microsoft.com/en-us/library/53k8ybth.aspx";
 
-			classUnderTest.GetSubPath(4);
+			Assert.Throws<ArgumentException>(() =>
+				classUnderTest.GetSubPath(4)
+			);
 		}
 
 		[Test]
@@ -184,12 +186,13 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		[ExpectedException]
 		public void GetSubPath_ThrowsException_SmallestStandardPath_IfBacktrackedTooFar()
 		{
 			Path classUnderTest = "/";
 
-			classUnderTest.GetSubPath(1);
+			Assert.Throws<ArgumentException>(() =>
+				classUnderTest.GetSubPath(1)
+			);
 		}
 
 		[Test]
@@ -255,12 +258,13 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		[ExpectedException]
-		public void GetSubPath_ThrowsException_ForPlainUrl_ForUnextendedStandardPath()
+		public void GetSubPath_ThrowsException_ForPlainUrl_ForUnExtendedStandardPath()
 		{
 			Path classUnderTest = "/a/b/c";
 
-			classUnderTest.GetSubPath(4);
+			Assert.Throws<ArgumentException>(() =>
+				classUnderTest.GetSubPath(4)
+			);
 		}
 
 		[Test]
@@ -337,12 +341,13 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		[ExpectedException]
 		public void GetSubPath_ThrowsException_ForPlainUrl_ForWindowsDirectoryPath()
 		{
 			Path classUnderTest = @"C:\Personal\Entertainment\Music\Comedy Sketches";
 
-			classUnderTest.GetSubPath(5);
+			Assert.Throws<ArgumentException>(() =>
+				classUnderTest.GetSubPath(5)
+			);
 		}
 
 		[Test]
@@ -410,12 +415,13 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		[ExpectedException]
 		public void GetSubPath_ThrowsException_ForPlainUrl_ForWindowsFullPath()
 		{
 			Path classUnderTest = @"C:\Personal\Entertainment\Music\Comedy Sketches\02 Working at the Burger King.m4a";
 
-			classUnderTest.GetSubPath(6);
+			Assert.Throws<ArgumentException>(() =>
+				classUnderTest.GetSubPath(6)
+			);
 		}
 	}
 }
