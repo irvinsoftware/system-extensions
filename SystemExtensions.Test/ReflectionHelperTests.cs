@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 using System.Reflection;
-using System.Runtime.Remoting.Metadata;
+using System.Xml.Serialization;
 using Irvin.Extensions;
 using NUnit.Framework;
 
@@ -32,7 +32,7 @@ namespace SystemExtensions.Test
 			MethodInfo methodInfo = GetType().GetMethod("TheTestMethod", BindingFlags.NonPublic | BindingFlags.Instance);
 			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
 
-			SoapParameterAttribute actual = ReflectionExtensions.GetAttributeInstance<SoapParameterAttribute>(parameterInfo);
+			SoapAttributeAttribute actual = ReflectionExtensions.GetAttributeInstance<SoapAttributeAttribute>(parameterInfo);
 
 			Assert.IsNotNull(actual);
 		}
@@ -136,7 +136,7 @@ namespace SystemExtensions.Test
 			Assert.IsTrue(ReflectionExtensions.IsPrimitive(typeof(string)));
 		}
 
-		private void TheTestMethod([SoapParameter] string a)
+		private void TheTestMethod([SoapAttribute] string a)
 		{
 		}
 	}

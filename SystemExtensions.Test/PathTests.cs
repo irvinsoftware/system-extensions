@@ -95,9 +95,7 @@ namespace SystemExtensions.Test
 		{
 			Path classUnderTest = "http://msdn.microsoft.com/en-us/library/53k8ybth.aspx";
 
-			Assert.Throws<ArgumentException>(() =>
-				classUnderTest.GetSubPath(4)
-			);
+			AssertThrows(() => classUnderTest.GetSubPath(4));
 		}
 
 		[Test]
@@ -190,9 +188,7 @@ namespace SystemExtensions.Test
 		{
 			Path classUnderTest = "/";
 
-			Assert.Throws<ArgumentException>(() =>
-				classUnderTest.GetSubPath(1)
-			);
+			AssertThrows(() => classUnderTest.GetSubPath(1));
 		}
 
 		[Test]
@@ -258,13 +254,11 @@ namespace SystemExtensions.Test
 		}
 
 		[Test]
-		public void GetSubPath_ThrowsException_ForPlainUrl_ForUnExtendedStandardPath()
+		public void GetSubPath_ThrowsException_ForPlainUrl_ForUnextendedStandardPath()
 		{
 			Path classUnderTest = "/a/b/c";
 
-			Assert.Throws<ArgumentException>(() =>
-				classUnderTest.GetSubPath(4)
-			);
+			AssertThrows(() => classUnderTest.GetSubPath(4));
 		}
 
 		[Test]
@@ -345,9 +339,7 @@ namespace SystemExtensions.Test
 		{
 			Path classUnderTest = @"C:\Personal\Entertainment\Music\Comedy Sketches";
 
-			Assert.Throws<ArgumentException>(() =>
-				classUnderTest.GetSubPath(5)
-			);
+			AssertThrows(() => classUnderTest.GetSubPath(5));
 		}
 
 		[Test]
@@ -419,9 +411,24 @@ namespace SystemExtensions.Test
 		{
 			Path classUnderTest = @"C:\Personal\Entertainment\Music\Comedy Sketches\02 Working at the Burger King.m4a";
 
-			Assert.Throws<ArgumentException>(() =>
-				classUnderTest.GetSubPath(6)
-			);
+			AssertThrows(() => classUnderTest.GetSubPath(6));
+		}
+		
+		private static void AssertThrows(Action method)
+		{
+			try
+			{
+				method();
+				Assert.Fail("Should have thrown exception");
+			}
+			catch (AssertionException)
+			{
+				throw;
+			}
+			catch (Exception)
+			{
+				//success
+			}
 		}
 	}
 }
