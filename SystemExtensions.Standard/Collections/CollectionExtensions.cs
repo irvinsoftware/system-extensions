@@ -12,6 +12,11 @@ namespace Irvin.Extensions.Collections
         {
             return list.Count - 1;
         }
+        
+        public static bool IsOneOf<T>(this T value, params T[] possibleValues)
+        {
+            return possibleValues.Any(x => x.Equals(value));
+        }
 
         public static bool None<T>(this IEnumerable<T> enumerable)
         {
