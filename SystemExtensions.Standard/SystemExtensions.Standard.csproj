@@ -1,23 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Irvin.Extensions</RootNamespace>
     <AssemblyName>SystemExtensions</AssemblyName>
-    <Company>Irvin Software Products, LLC</Company>
-    <Version>1.2.0</Version>
+    <Version>1.3.1</Version>
     <Product />
-    <Authors>Irvin Software Products, LLC</Authors>
-    <Copyright>Copyright © Irvin Software Products 2013-2022</Copyright>
+    <Authors>Nate Irvin</Authors>
+    <Copyright>Copyright © Nathaniel Irvin 2013-2023</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>A .NET Standard 2.0 library containing enhancements to the System library.</Description>
+    <Description>A .NET Standard 2.1 library containing enhancements to System libraries.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageVersion>1.2.1.1</PackageVersion>
-    <AssemblyVersion>1.2.1.1</AssemblyVersion>
-    <FileVersion>1.2.1.1</FileVersion>
+    <PackageVersion>1.3.1</PackageVersion>
+    <AssemblyVersion>1.3.1</AssemblyVersion>
+    <FileVersion>1.3.1</FileVersion>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

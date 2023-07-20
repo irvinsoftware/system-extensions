@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
+//for backwards compatability, do not move namespace (yet)
 namespace Irvin.Extensions
 {
 	public static class ReflectionExtensions
