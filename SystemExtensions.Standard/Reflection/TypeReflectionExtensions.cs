@@ -48,7 +48,7 @@ public static class TypeReflectionExtensions
         //for some reason SetOn() works for "object" but not "T"
         object obj = Activator.CreateInstance<T>();
         
-        foreach (DataMemberInfo dataMemberInfo in dataMemberInfos)
+        foreach (DataMemberInfo dataMemberInfo in dataMemberInfos.Where(x => x.CanSet))
         {
             dataMemberInfo.SetOn(obj);
         }
@@ -67,7 +67,7 @@ public static class TypeReflectionExtensions
         {
             List<ParameterInfo> parameterInfos = potentialConstructor.GetParameters().ToList();
             parameterValues = new object[parameterInfos.Count];
-            foreach (DataMemberInfo dataMemberInfo in dataMemberInfos)
+            foreach (DataMemberInfo dataMemberInfo in dataMemberInfos.Where(x => x.CanSet))
             {
                 if (parameterValues != null)
                 {
