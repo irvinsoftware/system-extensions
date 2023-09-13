@@ -32,9 +32,24 @@ namespace Irvin.Extensions
 			return attributes.Length != 0 ? (TAttribute) attributes[0] : null;
 		}
 
+		[Obsolete("This name is mis-leading. Please use " + nameof(IsBuiltIn) + " instead.")]
 		public static bool IsPrimitive(this Type type)
 		{
-			return type.IsPrimitive || typeof(decimal) == type || typeof(string) == type || typeof(DateTime) == type;
+			return IsBuiltIn(type);
+		}
+
+		/// <summary>
+		/// Indicates whether the type has a built-in implicit conversion from "object".
+		/// </summary>
+		/// <param name="type">The type to inspect.</param>
+		/// <returns>true if is a primitive type, a string, or a date type</returns>
+		public static bool IsBuiltIn(this Type type)
+		{
+			return type.IsPrimitive || 
+			       typeof(decimal) == type || 
+			       typeof(string) == type || 
+			       typeof(DateTime) == type ||
+			       typeof(DateTimeOffset) == type;
 		}
 
 		public static bool IsGenericList(this Type type)
