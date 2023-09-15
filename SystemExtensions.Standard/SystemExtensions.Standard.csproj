@@ -14,14 +14,19 @@
     <Description>A .NET Standard 2.1 library containing enhancements to System libraries.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageVersion>1.4.0</PackageVersion>
+    <PackageVersion>1.4.0.1</PackageVersion>
     <AssemblyVersion>1.4.0</AssemblyVersion>
     <FileVersion>1.4.0</FileVersion>
     <LangVersion>10</LangVersion>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Update="logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
