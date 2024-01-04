@@ -1,0 +1,37 @@
+name: CI/CD
+on:
+  pull_request:
+  push:
+    branches:
+      - develop
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+      - name: Run tests
+        run: |
+          dotnet test -c Release --logger "console;verbosity=normal" --nologo
+      - name: Create package
+        id: pkg
+        shell: pwsh
+        run: | 
+          cd SystemExtensions.Standard
+          
+          dotnet pack -c Release
+          
+          $vn = (Select-Xml -Path .\SystemExtensions.Standard\SystemExtensions.Standard.csproj -XPath "//PackageVersion/text()").Node.Value
+          echo "ver_num=$vn" >> "$GITHUB_OUTPUT"
+      - name: Create Release
+        if: github.event_name == 'push'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: pkg-${{ steps.pkg.outputs.ver_num }}
+          name: ${{ steps.pkg.outputs.ver_num }}
+      - name: Publish
+        if: github.event_name == 'push'
+        run: |
+          cd SystemExtensions.Standard\bin\Release
+          dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_APIKEY }}
