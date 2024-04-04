@@ -7,16 +7,14 @@
     <Version>1.4.0</Version>
     <Product />
     <Authors>Nate Irvin</Authors>
-    <Copyright>Copyright © Nathaniel Irvin 2013-2023</Copyright>
+    <Copyright>Copyright © Nathaniel Irvin 2013-2024</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET Standard 2.1 library containing enhancements to System libraries.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageVersion>1.4.0</PackageVersion>
-    <AssemblyVersion>1.4.0</AssemblyVersion>
-    <FileVersion>1.4.0</FileVersion>
+    <PackageVersion>1.5.0</PackageVersion>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
