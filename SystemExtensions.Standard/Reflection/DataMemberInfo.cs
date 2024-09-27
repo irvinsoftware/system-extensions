@@ -42,7 +42,7 @@ public class DataMemberInfo
             }
             catch (Exception exception)
             {
-                throw new TargetInvocationException($"Could not bind '{propertyInfo.Name}' on '{ParentName}'", exception);
+                throw new InvalidOperationException($"Could not bind '{propertyInfo.Name}' on '{ParentName}'", exception);
             }
         }
         else
