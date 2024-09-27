@@ -18,6 +18,13 @@
     <AssemblyVersion>1.4.0</AssemblyVersion>
     <FileVersion>1.4.0</FileVersion>
     <LangVersion>10</LangVersion>
+    <Configurations>Debug;Release;DebugEverything</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugEverything' ">
+    <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+    <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
