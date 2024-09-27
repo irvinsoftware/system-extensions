@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Reflection;
 
 namespace Irvin.Extensions.Reflection;
@@ -38,7 +37,8 @@ public class DataMemberInfo
         {
             try
             {
-                propertyInfo.SetValue(target, Value);
+                object convertedValue = DataType == typeof(decimal) ? Convert.ToDecimal(Value) : Value;
+                propertyInfo.SetValue(target, convertedValue);
             }
             catch (Exception exception)
             {
