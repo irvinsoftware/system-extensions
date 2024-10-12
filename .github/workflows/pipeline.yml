@@ -22,8 +22,10 @@ jobs:
           
           dotnet pack -c Release
           
-          $vn = (Select-Xml -Path .\SystemExtensions.Standard\SystemExtensions.Standard.csproj -XPath "//PackageVersion/text()").Node.Value
+          $vn = (Select-Xml -Path SystemExtensions.Standard.csproj -XPath "//PackageVersion/text()").Node.Value
           echo "ver_num=$vn" >> "$GITHUB_OUTPUT"
+          
+          cd ..
       - name: Create Release
         if: github.event_name == 'push'
         uses: ncipollo/release-action@v1
