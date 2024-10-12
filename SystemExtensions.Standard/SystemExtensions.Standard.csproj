@@ -26,7 +26,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Update="logo.png">
+    <None Include="logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
