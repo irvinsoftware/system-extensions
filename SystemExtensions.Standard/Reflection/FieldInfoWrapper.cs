@@ -27,6 +27,15 @@ namespace Irvin.Extensions.Reflection
         public Type MemberType => _fieldInfo.FieldType;
         public IMemberContainer Container => new TypeInfo(_fieldInfo.ReflectedType);
 
+        public bool IsPublic => _fieldInfo.IsPublic;
+        private bool IsPrivate => _fieldInfo.IsPrivate;
+        private bool IsInternal => _fieldInfo.IsFamilyOrAssembly;
+        private bool IsProtected => _fieldInfo.IsFamily;
+        public bool IsInternalNotProtected => IsInternal && !IsProtected;
+        public bool IsProtectedInternal => IsProtected && IsInternal;
+        public bool IsProtectedNotPrivate => IsProtected && !IsPrivate;
+        public bool IsPrivateNotProtected => IsPrivate && !IsProtected;
+
         public bool SetValue(object target, object value)
         {
             _fieldInfo.SetValue(target, value);

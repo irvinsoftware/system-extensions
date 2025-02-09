@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using TypeInfo = Irvin.Extensions.Reflection.TypeInfo;
 
 namespace Irvin.Extensions.Reflection
 {
@@ -11,7 +10,12 @@ namespace Irvin.Extensions.Reflection
         public PropertyInfoWrapper(PropertyInfo propertyInfo)
         {
             _propertyInfo = propertyInfo;
+            Getter = new MethodInfoWrapper(_propertyInfo.GetGetMethod());
+            Setter = new MethodInfoWrapper(_propertyInfo.GetSetMethod());
         }
+        
+        private MethodInfoWrapper Getter { get; }
+        private MethodInfoWrapper Setter { get; }
 
         public bool Equals(IMemberInfo other)
         {
@@ -27,6 +31,15 @@ namespace Irvin.Extensions.Reflection
         public string Name => _propertyInfo.Name;
         public Type MemberType => _propertyInfo.PropertyType;
         public IMemberContainer Container => new TypeInfo(_propertyInfo.ReflectedType);
+
+        public bool IsPublic => Getter?.IsPublic == true || Setter?.IsPublic == true;
+        
+        public bool IsInternalNotProtected => throw new NotImplementedException();
+        public bool IsProtectedInternal => throw new NotImplementedException();
+        public bool IsProtectedNotPrivate => throw new NotImplementedException();
+
+        public bool IsPrivateNotProtected => Getter?.IsPrivateNotProtected == true &&
+                                             Setter?.IsPrivateNotProtected == true;
 
         public bool SetValue(object target, object value)
         {

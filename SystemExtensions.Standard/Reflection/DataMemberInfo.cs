@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Reflection;
 
 namespace Irvin.Extensions.Reflection;
@@ -12,9 +11,11 @@ public class DataMemberInfo
     }
 
     private MemberInfo UnderlyingMember { get; }
+    private IMemberInfo Member => MemberInfoFactory.Get(UnderlyingMember);
     public string ParentName => (UnderlyingMember.ReflectedType ?? UnderlyingMember.DeclaringType)?.Name;
     public string Name => UnderlyingMember.Name;
     public Type DataType => (UnderlyingMember as FieldInfo)?.FieldType ?? (UnderlyingMember as PropertyInfo)?.PropertyType;
+    public MemberTypes MemberKind => UnderlyingMember.MemberType;
     public object Value { get; set; }
 
     public bool CanSet
@@ -30,7 +31,13 @@ public class DataMemberInfo
             return true;
         }
     }
-    
+
+    public bool IsPublic => Member.IsPublic;
+    public bool IsInternalNotProtected => Member.IsInternalNotProtected;
+    public bool IsProtectedNotPrivate => Member.IsProtectedNotPrivate;
+    public bool IsPrivateNotProtected => Member.IsPrivateNotProtected;
+    public bool IsProtectedInternal => Member.IsProtectedInternal;
+
     public void SetOn(object target)
     {
         PropertyInfo propertyInfo = UnderlyingMember as PropertyInfo;

@@ -7,6 +7,13 @@ namespace Irvin.Extensions.Reflection
         string Name { get; }
         Type MemberType { get; }
         IMemberContainer Container { get; }
+        
+        bool IsPublic { get; }
+        bool IsInternalNotProtected { get; }
+        bool IsProtectedInternal { get; }
+        bool IsProtectedNotPrivate { get; }
+        bool IsPrivateNotProtected { get; }
+
         object GetValue(object source);
         bool SetValue(object target, object value);
     }
