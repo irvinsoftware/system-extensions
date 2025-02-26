@@ -1,25 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>Irvin.Extensions</RootNamespace>
     <AssemblyName>SystemExtensions</AssemblyName>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
     <Product />
     <Authors>Nate Irvin</Authors>
     <Copyright>Copyright © Nathaniel Irvin 2013-2024</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Irvin.SystemExtensions</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>A .NET Standard 2.1 library containing enhancements to System libraries.</Description>
+    <Description>A .NET Standard library containing enhancements to System libraries.</Description>
     <RepositoryUrl>https://github.com/irvinsoftware/system-extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageVersion>1.5.0</PackageVersion>
+    <AssemblyVersion>1.5.0</AssemblyVersion>
+    <FileVersion>1.5.0</FileVersion>
     <LangVersion>10</LangVersion>
+    <PackageIcon>logo.png</PackageIcon>
+    <Configurations>Debug;Release;DebugEverything</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugEverything' ">
+    <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+    <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

@@ -73,6 +73,8 @@ namespace Irvin.Extensions.Collections
             return downcastList;
         }
 
+        #if NETSTANDARD2_1
+        
         public static async Task<List<T>> ToListAsync<T>(this IAsyncEnumerable<T> enumerable, CancellationToken cancellationToken = default)
         {
             List<T> listAsync = new List<T>();
@@ -82,6 +84,8 @@ namespace Irvin.Extensions.Collections
             }
             return listAsync;
         }
+
+        #endif
 
         public static IEnumerable<TSource> UnionAll<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
