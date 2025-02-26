@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemExtensions.Standard", "SystemExtensions.Standard\SystemExtensions.Standard.csproj", "{B7D593A7-2748-466A-AD58-56659E8B2DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExtensions.Framework", "SystemExtensions.Framework\SystemExtensions.Framework.csproj", "{0544A253-746A-419F-B4A6-B7ED03083BFC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExtensions.Test", "SystemExtensions.Test\SystemExtensions.Test.csproj", "{1AA8F22F-300C-430E-8785-CB3AF7B5407F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "meta", "meta", "{EE52E5CF-1B83-430D-B5BC-2BFD2E4B6029}"
@@ -24,10 +22,6 @@ Global
 		{B7D593A7-2748-466A-AD58-56659E8B2DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D593A7-2748-466A-AD58-56659E8B2DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D593A7-2748-466A-AD58-56659E8B2DF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0544A253-746A-419F-B4A6-B7ED03083BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0544A253-746A-419F-B4A6-B7ED03083BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0544A253-746A-419F-B4A6-B7ED03083BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0544A253-746A-419F-B4A6-B7ED03083BFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1AA8F22F-300C-430E-8785-CB3AF7B5407F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1AA8F22F-300C-430E-8785-CB3AF7B5407F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA8F22F-300C-430E-8785-CB3AF7B5407F}.Release|Any CPU.ActiveCfg = Release|Any CPU
