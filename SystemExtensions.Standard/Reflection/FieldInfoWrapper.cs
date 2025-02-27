@@ -2,13 +2,18 @@
 
 namespace Irvin.Extensions.Reflection
 {
-    internal class FieldInfoWrapper : IMemberInfo
+    public class FieldInfoWrapper : IMemberInfo
     {
         private readonly System.Reflection.FieldInfo _fieldInfo;
 
         public FieldInfoWrapper(System.Reflection.FieldInfo fieldInfo)
         {
             _fieldInfo = fieldInfo;
+        }
+        
+        public override int GetHashCode()
+        {
+            return _fieldInfo.GetHashCode();
         }
 
         public bool Equals(IMemberInfo other)

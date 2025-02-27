@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Irvin.Extensions.Reflection;
 
-public class MemberInfoFactory
+public static class MemberInfoFactory
 {
     public static IMemberInfo Get(MemberInfo memberInfo)
     {

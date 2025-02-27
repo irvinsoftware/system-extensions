@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Irvin.Extensions.Reflection
 {
-    internal class PropertyInfoWrapper : IMemberInfo
+    public class PropertyInfoWrapper : IMemberInfo
     {
         private readonly PropertyInfo _propertyInfo;
 
@@ -16,6 +16,11 @@ namespace Irvin.Extensions.Reflection
         
         private MethodInfoWrapper Getter { get; }
         private MethodInfoWrapper Setter { get; }
+        
+        public override int GetHashCode()
+        {
+            return _propertyInfo.GetHashCode();
+        }
 
         public bool Equals(IMemberInfo other)
         {
