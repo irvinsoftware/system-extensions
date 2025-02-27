@@ -24,4 +24,6 @@ public static class TypeFactory
             return typeMembers.Where(member => member.CustomAttributes.All(x => x.AttributeType != typeof(CompilerGeneratedAttribute)));
         });
     }
+
+    public static int NumberOfTypesCached => _typeMemberCache.Count;
 }
